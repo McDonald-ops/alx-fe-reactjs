@@ -16,7 +16,7 @@ const AddRecipeForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 mb-8">
+    <form onSubmit={handleSubmit}>
       <div>
         <label className="block mb-1 font-medium">Title</label>
         <input
@@ -28,7 +28,7 @@ const AddRecipeForm = () => {
         />
       </div>
       <div>
-        <label className="block mb-1 font-medium">Description</label>
+        <label>Description</label>
         <textarea
           value={description}
           onChange={e => setDescription(e.target.value)}
@@ -38,7 +38,6 @@ const AddRecipeForm = () => {
       </div>
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
       >
         Add Recipe
       </button>
