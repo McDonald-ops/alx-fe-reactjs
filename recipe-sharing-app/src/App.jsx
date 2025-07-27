@@ -7,6 +7,8 @@ import RecipeDetails   from './components/RecipeDetails'
 import EditRecipeForm  from './components/EditRecipeForm'
 import DeleteRecipeButton from './components/DeleteRecipeButton'
 import SearchBar from './components/SearchBar'
+import RecommendationsList from './components/RecommendationsList'
+import FavoritesList from './components/FavoritesList'
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
                 <EditRecipeForm />
                 <DeleteRecipeButton />
                 <SearchBar />
+                <RecommendationsList />
+                <FavoritesList />
               </>
             }
           />
