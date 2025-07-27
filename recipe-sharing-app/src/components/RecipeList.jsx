@@ -4,15 +4,20 @@ import { useRecipeStore } from './recipeStore'
 
 const RecipeList = () => {
   const recipes = useRecipeStore(state => state.recipes)
+  const filteredRecipes = useRecipeStore((s) => s.filteredRecipes)
+  const searchTerm      = useRecipeStore((s) => s.searchTerm)
 
-  if (recipes.length === 0) {
-    return <p>No recipes added yet.</p>
+  // if there's a search term, show only filteredRecipes
+  const listToShow = searchTerm ? filteredRecipes : recipes
+
+  if (listToShow.length === 0) {
+    return <p>No recipes found.</p>
   }
 
   return (
     <div>
         <h2>Recipe List</h2>
-      {recipes.map(recipe => (
+       {listToShow.map((recipe) => (
         <div key={recipe.id} className="recipe">
              <Link to={`/recipe/${r.id}`}>
           <h3 className="text-xl font-semibold">{recipe.title}</h3>
