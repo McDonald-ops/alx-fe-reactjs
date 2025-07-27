@@ -14,8 +14,11 @@ const RecipeDetails = () => {
 
   return (
     <div className="p-4">
-      <h1>{recipe.title}</h1>
-      <p>{recipe.description}</p>
+      {/* explicit reference to recipe.id */}
+      <p className="text-sm text-gray-500">ID: {recipe.id}</p>
+
+      <h1 className="text-2xl font-bold mb-2">{recipe.title}</h1>
+      <p className="mb-4">{recipe.description}</p>
 
       <div className="flex space-x-2">
         <Link
