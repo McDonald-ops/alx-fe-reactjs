@@ -22,8 +22,8 @@ const EditRecipeForm = () => {
 
   if (!recipe) return <p>Recipe not found.</p>
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault()
     updateRecipe({ id, title, description })
     navigate(`/recipe/${id}`)
   }
@@ -41,7 +41,7 @@ const EditRecipeForm = () => {
       <div>
         <label>Description</label>
         <textarea
-          
+          className="w-full p-2 border rounded h-32"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
