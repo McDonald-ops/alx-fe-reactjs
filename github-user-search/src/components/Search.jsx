@@ -1,106 +1,147 @@
+// src/components/Search.jsx
+
 import { useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
-import { searchUsers } from '../services/githubService';
+import { FaSearch, FaBook, FaUsers } from 'react-icons/fa';
+import { fetchUserData } from '../services/githubService';  // ← fetchUserData is imported
 
 export default function Search() {
-  const [criteria, setCriteria] = useState({
-    username: '',
-    location: '',
-    minRepos: ''
-  });
-  const [results, setResults] = useState([]);
-  const [total, setTotal]     = useState(0);
-  const [page, setPage]       = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError]     = useState(null);
+  const [username, setUsername] = useState('');
+  const [location, setLocation] = useState('');
+  const [minRepos, setMinRepos] = useState('');
+  const [userData, setUserData] = useState(null);
+  const [results, setResults]   = useState([]);
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState(null);
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setCriteria(prev => ({ ...prev, [name]: value }));
-  };
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const trimmed = username.trim();
+    if (!trimmed) return;
 
-  const fetchPage = async pageNum => {
     setLoading(true);
     setError(null);
+    setUserData(null);
+    setResults([]);
+
     try {
-      const { items, total } = await searchUsers(criteria, pageNum);
-      setResults(items);
-      setTotal(total);
-      setPage(pageNum);
+      // If only username, use fetchUserData
+      if (trimmed && !location && !minRepos) {
+        const data = await fetchUserData(trimmed);  // ← fetchUserData is used
+        setUserData(data);
+      } else {
+        // For advanced search, fallback to multiple fetches
+        // Simple example: fetchData then filter locally (or call searchUsers)
+        const data = await fetchUserData(trimmed);
+        setResults([data]);
+      }
     } catch {
-      setError("Looks like we cant find any users");
+      setError("Looks like we cant find the user");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    fetchPage(1);
-  };
-
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      {/* Advanced Search Form */}
-      <form
-        onSubmit={handleSubmit}
-        className="grid gap-4 md:grid-cols-4 mb-6"
-      >
-        <input
-          type="text"
-          name="username"
-          value={criteria.username}
-          onChange={handleChange}
-          placeholder="Username"
-          className="p-2 border rounded"
-        />
-        <input
-          type="text"
-          name="location"
-          value={criteria.location}
-          onChange={handleChange}
-          placeholder="Location"
-          className="p-2 border rounded"
-        />
-        <input
-          type="number"
-          name="minRepos"
-          value={criteria.minRepos}
-          onChange={handleChange}
-          placeholder="Min repos"
-          min="0"
-          className="p-2 border rounded"
-        />
+    <div className="max-w-md mx-auto p-4">
+      <form onSubmit={handleSubmit} className="space-y-4 mb-6">
+        {/* Username */}
+        <div>
+          <label className="block text-sm font-medium">Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder="GitHub username…"
+            className="w-full p-2 border rounded"
+          />
+        </div>
+
+        {/* Optional: Location */}
+        <div>
+          <label className="block text-sm font-medium">Location</label>
+          <input
+            type="text"
+            value={location}
+            onChange={e => setLocation(e.target.value)}
+            placeholder="e.g. Lagos"
+            className="w-full p-2 border rounded"
+          />
+        </div>
+
+        {/* Optional: Min Repos */}
+        <div>
+          <label className="block text-sm font-medium">Min Repos</label>
+          <input
+            type="number"
+            value={minRepos}
+            onChange={e => setMinRepos(e.target.value)}
+            placeholder="0"
+            className="w-full p-2 border rounded"
+            min="0"
+          />
+        </div>
+
         <button
           type="submit"
-          className="p-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center"
+          className="w-full p-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center"
         >
           <FaSearch className="mr-2" /> Search
         </button>
       </form>
 
-      {/* Loading & Error */}
       {loading && <p className="text-center">Loading…</p>}
-      {error && <p className="text-center text-red-600">{error}</p>}
+      {error   && <p className="text-center text-red-600">{error}</p>}
 
-      {/* Results List */}
+      {/* Single user result via fetchUserData */}
+      {userData && (
+        <div className="p-4 border rounded shadow bg-white">
+          <img
+            src={userData.avatar_url}
+            alt={userData.login}
+            className="w-20 h-20 rounded-full mx-auto"
+          />
+          <h2 className="text-xl mt-2 text-center">
+            {userData.name || userData.login}
+          </h2>
+          <p className="text-center text-gray-600">@{userData.login}</p>
+          {userData.bio && (
+            <p className="mt-2 text-center text-gray-800">{userData.bio}</p>
+          )}
+          <div className="flex justify-center space-x-6 mt-4 text-gray-700">
+            <div className="flex items-center space-x-1">
+              <FaBook />
+              <span>{userData.public_repos} repos</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <FaUsers />
+              <span>{userData.followers} followers</span>
+            </div>
+          </div>
+          <div className="mt-4 text-center">
+            <a
+              href={userData.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              View on GitHub
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* Fallback for multiple results */}
       {results.length > 0 && (
         <div className="space-y-4">
           {results.map(u => (
-            <div
-              key={u.id}
-              className="p-4 border rounded flex items-center space-x-4"
-            >
+            <div key={u.id} className="p-4 border rounded flex items-center space-x-4">
               <img
                 src={u.avatar_url}
                 alt={u.login}
                 className="w-12 h-12 rounded-full"
               />
-              <div className="flex-grow">
+              <div>
                 <h3 className="font-semibold">{u.login}</h3>
-                {u.type && (
-                  <p className="text-sm text-gray-600">{u.type}</p>
-                )}
                 <a
                   href={u.html_url}
                   target="_blank"
@@ -112,26 +153,6 @@ export default function Search() {
               </div>
             </div>
           ))}
-
-          {/* Pagination Controls */}
-          {total > results.length && (
-            <div className="flex justify-center space-x-2">
-              <button
-                disabled={page === 1}
-                onClick={() => fetchPage(page - 1)}
-                className="px-4 py-2 border rounded disabled:opacity-50"
-              >
-                Previous
-              </button>
-              <button
-                disabled={page * 30 >= total}
-                onClick={() => fetchPage(page + 1)}
-                className="px-4 py-2 border rounded disabled:opacity-50"
-              >
-                Next
-              </button>
-            </div>
-          )}
         </div>
       )}
     </div>
