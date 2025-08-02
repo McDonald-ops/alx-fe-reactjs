@@ -34,9 +34,12 @@ export function searchUsers(criteria, page = 1) {
     .filter(Boolean)
     .join('+');
 
-  return API
-    .get('/search/users', {
-      params: { q, per_page: 30, page }
+  // Use the full URL string here
+  const url = `https://api.github.com/search/users?q=${q}&per_page=30&page=${page}`;
+
+  return axios
+    .get(url, {
+      headers: API.defaults.headers
     })
     .then(res => ({
       items: res.data.items,
