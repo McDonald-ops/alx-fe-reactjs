@@ -1,48 +1,24 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API = axios.create({
-  baseURL: 'https://api.github.com',
-  headers: {
-    // Omit this header if you don’t need authentication
-    Authorization: `token ${import.meta.env.VITE_APP_GITHUB_API_KEY}`
-  }
-});
+export default async function fetchUserData({ username, location, minRepos }) {
+  let queryParts = [];
 
-/**
- * Fetch a single GitHub user’s profile by username.
- * @param {string} username
- * @returns {Promise<object>}
- */
-export function fetchUserData(username) {
-  return API
-    .get(`/users/${username}`)
-    .then(res => res.data);
-}
+  if (username) queryParts.push(`${username} in:login`);
+  if (location) queryParts.push(`location:${location}`);
+  if (minRepos) queryParts.push(`repos:>=${minRepos}`);
 
-/**
- * Search GitHub users by multiple criteria.
- * @param {{ username?: string, location?: string, minRepos?: string }} criteria
- * @param {number} page
- * @returns {Promise<{ items: object[], total: number }>}
- */
-export function searchUsers(criteria, page = 1) {
-  const q = [
-    criteria.username && criteria.username,
-    criteria.location && `location:${criteria.location}`,
-    criteria.minRepos && `repos:>=${criteria.minRepos}`
-  ]
-    .filter(Boolean)
-    .join('+');
+  const query = queryParts.join(" ");
+  const url = `https://api.github.com/search/users?q=${encodeURIComponent(query)}&per_page=10`;
 
-  // Use the full URL string here
-  const url = `https://api.github.com/search/users?q=${q}&per_page=30&page=${page}`;
+  const response = await axios.get(url);
 
-  return axios
-    .get(url, {
-      headers: API.defaults.headers
+  // GitHub Search API returns limited user data, so we fetch full details
+  const detailedUsers = await Promise.all(
+    response.data.items.map(async (user) => {
+      const userDetails = await axios.get(user.url);
+      return userDetails.data;
     })
-    .then(res => ({
-      items: res.data.items,
-      total: res.data.total_count
-    }));
+  );
+
+  return detailedUsers;
 }

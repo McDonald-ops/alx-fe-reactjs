@@ -1,154 +1,100 @@
-// src/components/Search.jsx
-
-import { useState } from 'react';
-import { FaSearch, FaBook, FaUsers } from 'react-icons/fa';
-import { fetchUserData } from '../services/githubService';  // ← fetchUserData is imported
+import { useState } from "react";
+import fetchUserData from "../services/githubService";
 
 export default function Search() {
-  const [username, setUsername] = useState('');
-  const [location, setLocation] = useState('');
-  const [minRepos, setMinRepos] = useState('');
-  const [userData, setUserData] = useState(null);
-  const [results, setResults]   = useState([]);
-  const [loading, setLoading]   = useState(false);
-  const [error, setError]       = useState(null);
+  const [username, setUsername] = useState("");
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [results, setResults] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async e => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    const trimmed = username.trim();
-    if (!trimmed) return;
-
-    setLoading(true);
-    setError(null);
-    setUserData(null);
-    setResults([]);
+    if (!username && !location && !minRepos) return;
 
     try {
-      // If only username, use fetchUserData
-      if (trimmed && !location && !minRepos) {
-        const data = await fetchUserData(trimmed);  // ← fetchUserData is used
-        setUserData(data);
-      } else {
-        // For advanced search, fallback to multiple fetches
-        // Simple example: fetchData then filter locally (or call searchUsers)
-        const data = await fetchUserData(trimmed);
-        setResults([data]);
-      }
-    } catch {
+      setLoading(true);
+      const users = await fetchUserData({ username, location, minRepos });
+      setResults(users);
+      setError(null);
+    } catch (err) {
       setError("Looks like we cant find the user");
+      setResults([]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <form onSubmit={handleSubmit} className="space-y-4 mb-6">
-        {/* Username */}
+    <div className="p-6 max-w-2xl mx-auto">
+      <form onSubmit={handleSearch} className="grid gap-4 mb-6">
         <div>
-          <label className="block text-sm font-medium">Username</label>
+          <label className="block mb-1 font-semibold">Username</label>
           <input
             type="text"
             value={username}
-            onChange={e => setUsername(e.target.value)}
-            placeholder="GitHub username…"
-            className="w-full p-2 border rounded"
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="e.g., McDonald-ops"
+            className="border rounded px-3 py-2 w-full"
           />
         </div>
 
-        {/* Optional: Location */}
         <div>
-          <label className="block text-sm font-medium">Location</label>
+          <label className="block mb-1 font-semibold">Location</label>
           <input
             type="text"
             value={location}
-            onChange={e => setLocation(e.target.value)}
-            placeholder="e.g. Lagos"
-            className="w-full p-2 border rounded"
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="e.g., Nigeria"
+            className="border rounded px-3 py-2 w-full"
           />
         </div>
 
-        {/* Optional: Min Repos */}
         <div>
-          <label className="block text-sm font-medium">Min Repos</label>
+          <label className="block mb-1 font-semibold">Minimum Repositories</label>
           <input
             type="number"
             value={minRepos}
-            onChange={e => setMinRepos(e.target.value)}
-            placeholder="0"
-            className="w-full p-2 border rounded"
-            min="0"
+            onChange={(e) => setMinRepos(e.target.value)}
+            placeholder="e.g., 10"
+            className="border rounded px-3 py-2 w-full"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full p-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center"
+          className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
-          <FaSearch className="mr-2" /> Search
+          {loading ? "Searching..." : "Search"}
         </button>
       </form>
 
-      {loading && <p className="text-center">Loading…</p>}
-      {error   && <p className="text-center text-red-600">{error}</p>}
+      {error && <p className="text-red-500 text-center">{error}</p>}
 
-      {/* Single user result via fetchUserData */}
-      {userData && (
-        <div className="p-4 border rounded shadow bg-white">
-          <img
-            src={userData.avatar_url}
-            alt={userData.login}
-            className="w-20 h-20 rounded-full mx-auto"
-          />
-          <h2 className="text-xl mt-2 text-center">
-            {userData.name || userData.login}
-          </h2>
-          <p className="text-center text-gray-600">@{userData.login}</p>
-          {userData.bio && (
-            <p className="mt-2 text-center text-gray-800">{userData.bio}</p>
-          )}
-          <div className="flex justify-center space-x-6 mt-4 text-gray-700">
-            <div className="flex items-center space-x-1">
-              <FaBook />
-              <span>{userData.public_repos} repos</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <FaUsers />
-              <span>{userData.followers} followers</span>
-            </div>
-          </div>
-          <div className="mt-4 text-center">
-            <a
-              href={userData.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              View on GitHub
-            </a>
-          </div>
-        </div>
-      )}
-
-      {/* Fallback for multiple results */}
       {results.length > 0 && (
         <div className="space-y-4">
-          {results.map(u => (
-            <div key={u.id} className="p-4 border rounded flex items-center space-x-4">
+          {results.map((user) => (
+            <div
+              key={user.id}
+              className="p-4 border rounded shadow flex items-center space-x-4"
+            >
               <img
-                src={u.avatar_url}
-                alt={u.login}
-                className="w-12 h-12 rounded-full"
+                src={user.avatar_url}
+                alt={user.login}
+                className="w-16 h-16 rounded-full"
               />
               <div>
-                <h3 className="font-semibold">{u.login}</h3>
+                <h2 className="text-lg font-bold">{user.login}</h2>
+                <p className="text-sm text-gray-600">Location: {user.location || "N/A"}</p>
+                <p className="text-sm text-gray-600">Public Repos: {user.public_repos}</p>
                 <a
-                  href={u.html_url}
+                  href={user.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline text-sm"
+                  className="text-blue-500 underline"
                 >
-                  View on GitHub
+                  View Profile
                 </a>
               </div>
             </div>

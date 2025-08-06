@@ -1,18 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Search from './components/Search';
-import UserCard from './components/UserCard';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./components/Home";
+import About from "./components/About";
+import Search from "./components/Search";
 
-export default function App() {
+function App() {
   return (
-    <BrowserRouter>
-      <div style={{ maxWidth: 600, margin: '2rem auto' }}>
-        <h1 className="text-3xl font-bold mb-4">GitHub User Search</h1>
-
+    <Router>
+      <nav className="p-4 bg-gray-800 text-white flex gap-4">
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/search">Search</Link>
+      </nav>
+      <main className="p-4">
         <Routes>
-          <Route path="/" element={<Search />} />
-          <Route path="/user/:profile" element={<UserCard />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
-      </div>
-    </BrowserRouter>
+      </main>
+    </Router>
   );
 }
+
+export default App;
