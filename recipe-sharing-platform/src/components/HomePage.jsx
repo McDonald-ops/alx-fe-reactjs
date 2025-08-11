@@ -22,8 +22,8 @@ function HomePage() {
           </p>
         </header>
 
-        {/* Responsive grid: 1 col mobile, 2 cols sm, 3 cols lg */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Responsive grid: 1 col mobile, 2 cols md, 3 cols lg */}
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recipes.map(recipe => (
             <div
               key={recipe.id}
