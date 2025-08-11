@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Spaghetti Carbonara",
+    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
+    "image": "https://via.placeholder.com/600x400?text=Spaghetti+Carbonara"
+  },
+  {
+    "id": 2,
+    "title": "Chicken Tikka Masala",
+    "summary": "Chunks of grilled chicken cooked in a smooth buttery & creamy tomato based gravy.",
+    "image": "https://via.placeholder.com/600x400?text=Chicken+Tikka+Masala"
+  },
+  {
+    "id": 3,
+    "title": "Vegetable Stir-Fry",
+    "summary": "Quick and colorful vegetables tossed in a tangy soy-garlic sauce.",
+    "image": "https://via.placeholder.com/600x400?text=Vegetable+Stir-Fry"
+  },
+  {
+    "id": 4,
+    "title": "Avocado Toast with Poached Egg",
+    "summary": "Creamy avocado on toasted bread topped with a silky poached egg and chilli flakes.",
+    "image": "https://via.placeholder.com/600x400?text=Avocado+Toast"
+  },
+  {
+    "id": 5,
+    "title": "Beef Tacos",
+    "summary": "Crispy taco shells loaded with seasoned beef, fresh salsa and cilantro.",
+    "image": "https://via.placeholder.com/600x400?text=Beef+Tacos"
+  },
+  {
+    "id": 6,
+    "title": "Lemon Drizzle Cake",
+    "summary": "Moist and zesty cake finished with a sweet tangy lemon glaze.",
+    "image": "https://via.placeholder.com/600x400?text=Lemon+Drizzle+Cake"
+  }
+]
