@@ -7,7 +7,6 @@ function HomePage() {
 
   // Load mock data on mount
   useEffect(() => {
-    // Simulate loading (you could fetch if hosting JSON elsewhere)
     setRecipes(recipesJson);
   }, []);
 
@@ -26,7 +25,12 @@ function HomePage() {
         {/* Responsive grid: 1 col mobile, 2 cols sm, 3 cols lg */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {recipes.map(recipe => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <div
+              key={recipe.id}
+              className="hover:shadow-lg rounded shadow transition-transform hover:-translate-y-1"
+            >
+              <RecipeCard recipe={recipe} />
+            </div>
           ))}
         </section>
 
