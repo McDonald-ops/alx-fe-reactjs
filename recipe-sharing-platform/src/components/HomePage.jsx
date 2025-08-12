@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
+import AddRecipeForm from './AddRecipeForm';
 import recipesJson from '../data.json';
 
 function HomePage() {
@@ -8,8 +9,14 @@ function HomePage() {
 
   // Load mock data on mount
   useEffect(() => {
-    setRecipes(recipesJson);
+    setRecipes(Array.isArray(recipesJson) ? [...recipesJson] : []);
   }, []);
+
+  // Handler to add a new recipe 
+  const handleAddRecipe = (newRecipe) => {
+    // ensure ID uniqueness
+    setRecipes(prev => [newRecipe, ...prev]);
+  };
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-slate-900 py-8 px-4">
@@ -22,6 +29,11 @@ function HomePage() {
             Discover recipes from the community — click any card to view details.
           </p>
         </header>
+
+         {/* Add recipe form */}
+        <div className="mb-8">
+          <AddRecipeForm onAdd={handleAddRecipe} />
+        </div>
 
         {/* Responsive grid: 1 col mobile, 2 cols md, 3 cols lg */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
