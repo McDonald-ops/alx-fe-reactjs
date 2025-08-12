@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
 import recipesJson from '../data.json';
 
@@ -25,12 +26,14 @@ function HomePage() {
         {/* Responsive grid: 1 col mobile, 2 cols md, 3 cols lg */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recipes.map(recipe => (
-            <div
-              key={recipe.id}
-              className="hover:shadow-lg rounded shadow transition-transform hover:-translate-y-1"
-            >
-              <RecipeCard recipe={recipe} />
-            </div>
+          <Link
+            key={recipe.id}
+            to={`/recipe/${recipe.id}`}
+            className="hover:shadow-lg rounded shadow transition-transform hover:-translate-y-1 block"
+           >
+            <RecipeCard recipe={recipe} />
+          </Link>
+
           ))}
         </section>
 
