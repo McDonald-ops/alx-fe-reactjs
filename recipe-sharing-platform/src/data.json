@@ -3,36 +3,135 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/600x400?text=Spaghetti+Carbonara"
+    "image": "https://via.placeholder.com/1200x800?text=Spaghetti+Carbonara",
+    "ingredients": [
+      "400g spaghetti",
+      "150g pancetta or bacon, diced",
+      "2 large eggs",
+      "100g Pecorino Romano or Parmesan, finely grated",
+      "Freshly ground black pepper",
+      "Salt"
+    ],
+    "instructions": [
+      "Bring a large pot of salted water to a boil and cook the spaghetti until al dente.",
+      "While the pasta cooks, fry the pancetta in a skillet until crispy. Remove from heat and set aside.",
+      "In a bowl, whisk the eggs and most of the grated cheese together. Add a generous amount of black pepper.",
+      "Reserve a cup of pasta water, then drain the spaghetti.",
+      "Quickly toss the hot spaghetti with the egg and cheese mixture off the heat, adding pasta water as needed to create a creamy sauce.",
+      "Mix in the crispy pancetta, adjust seasoning, and serve topped with remaining cheese and more black pepper."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/600x400?text=Chicken+Tikka+Masala"
+    "image": "https://via.placeholder.com/1200x800?text=Chicken+Tikka+Masala",
+    "ingredients": [
+      "600g boneless chicken thighs, cut into pieces",
+      "150g yogurt",
+      "2 tbsp garam masala",
+      "1 tbsp ground cumin",
+      "1 tbsp ground coriander",
+      "1 large onion, finely chopped",
+      "400g canned tomatoes",
+      "200ml cream or coconut milk",
+      "2 tbsp butter or ghee",
+      "Salt"
+    ],
+    "instructions": [
+      "Marinate the chicken in yogurt, half the garam masala, cumin, coriander and salt for at least 1 hour (overnight ideal).",
+      "Grill or sear the marinated chicken until cooked through and slightly charred. Set aside.",
+      "In a pan, sauté onions in butter until golden. Add remaining spices and cook briefly.",
+      "Add canned tomatoes and simmer until thickened, then stir in cream and return the chicken to the sauce.",
+      "Simmer for 10 minutes to allow flavors to meld. Serve with rice or naan."
+    ]
   },
   {
     "id": 3,
     "title": "Vegetable Stir-Fry",
     "summary": "Quick and colorful vegetables tossed in a tangy soy-garlic sauce.",
-    "image": "https://via.placeholder.com/600x400?text=Vegetable+Stir-Fry"
+    "image": "https://via.placeholder.com/1200x800?text=Vegetable+Stir-Fry",
+    "ingredients": [
+      "1 red bell pepper, sliced",
+      "1 yellow bell pepper, sliced",
+      "2 cups broccoli florets",
+      "1 carrot, julienned",
+      "2 cloves garlic, minced",
+      "2 tbsp soy sauce",
+      "1 tbsp rice vinegar",
+      "1 tsp sesame oil",
+      "1 tbsp vegetable oil"
+    ],
+    "instructions": [
+      "Heat vegetable oil in a wok or large skillet over high heat.",
+      "Add garlic and stir briefly until fragrant.",
+      "Add harder vegetables first (carrot, broccoli) and stir-fry for 2–3 minutes.",
+      "Add bell peppers and continue to stir-fry until vegetables are tender-crisp.",
+      "Mix soy sauce, rice vinegar and sesame oil; pour over vegetables and toss to coat.",
+      "Serve immediately over steamed rice or noodles."
+    ]
   },
   {
     "id": 4,
     "title": "Avocado Toast with Poached Egg",
     "summary": "Creamy avocado on toasted bread topped with a silky poached egg and chilli flakes.",
-    "image": "https://via.placeholder.com/600x400?text=Avocado+Toast"
+    "image": "https://via.placeholder.com/1200x800?text=Avocado+Toast",
+    "ingredients": [
+      "2 slices of sourdough or wholegrain bread",
+      "1 ripe avocado",
+      "2 eggs",
+      "1 tbsp lemon juice",
+      "Chilli flakes",
+      "Salt and pepper"
+    ],
+    "instructions": [
+      "Toast the bread to your liking.",
+      "Mash the avocado with lemon juice, salt and pepper.",
+      "Poach the eggs to desired doneness.",
+      "Spread avocado on toast, top with the poached egg, sprinkle chilli flakes and serve."
+    ]
   },
   {
     "id": 5,
     "title": "Beef Tacos",
     "summary": "Crispy taco shells loaded with seasoned beef, fresh salsa and cilantro.",
-    "image": "https://via.placeholder.com/600x400?text=Beef+Tacos"
+    "image": "https://via.placeholder.com/1200x800?text=Beef+Tacos",
+    "ingredients": [
+      "500g ground beef",
+      "1 packet taco seasoning or homemade mix",
+      "8 taco shells",
+      "1 cup shredded lettuce",
+      "1 cup diced tomatoes or salsa",
+      "1/2 cup shredded cheese",
+      "Fresh cilantro"
+    ],
+    "instructions": [
+      "Cook the ground beef in a skillet until browned, drain excess fat.",
+      "Add taco seasoning and a splash of water; simmer until beef is coated and flavorful.",
+      "Warm taco shells according to package instructions.",
+      "Assemble tacos with beef, lettuce, tomatoes/salsa, cheese and cilantro."
+    ]
   },
   {
     "id": 6,
     "title": "Lemon Drizzle Cake",
     "summary": "Moist and zesty cake finished with a sweet tangy lemon glaze.",
-    "image": "https://via.placeholder.com/600x400?text=Lemon+Drizzle+Cake"
+    "image": "https://via.placeholder.com/1200x800?text=Lemon+Drizzle+Cake",
+    "ingredients": [
+      "225g unsalted butter, softened",
+      "225g caster sugar",
+      "4 large eggs",
+      "225g self-raising flour",
+      "Zest of 2 lemons",
+      "Juice of 1 lemon",
+      "100g icing sugar (for drizzle)"
+    ],
+    "instructions": [
+      "Preheat the oven to 180°C (350°F). Grease and line a loaf tin.",
+      "Cream butter and sugar, then beat in eggs one at a time.",
+      "Fold in flour and lemon zest until just combined.",
+      "Pour batter into tin and bake for 45–55 minutes until a skewer comes out clean.",
+      "Mix lemon juice with icing sugar to make the drizzle; pour over warm cake."
+    ]
   }
 ]
