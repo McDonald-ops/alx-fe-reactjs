@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@keyframes colorChange {
+  0%   { color: #2e354e; }
+  25%  { color: #88d286; }
+  50%  { color: #d6e06b; }
+  75%  { color: #f87d4d; }
+  100% { color: #2e354e; }
+}
+
+.animate-colorChange {
+  animation: colorChange 6s infinite alternate;
+}
