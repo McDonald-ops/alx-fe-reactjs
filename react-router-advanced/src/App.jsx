@@ -5,6 +5,7 @@ import Profile from './components/Profile'
 import Posts from './components/Posts'
 import PostDetails from './components/PostDetails'
 import ProtectedRoute from './components/ProtectedRoute'
+import BlogPost from './components/BlogPost'
 
 function App() {
   return (
@@ -16,7 +17,10 @@ function App() {
         <Route path="/posts" element={<Posts />} />
         <Route path="/posts/:id" element={<PostDetails />} />
 
-        {/* Protected Profile route with nested routes handled inside Profile.jsx */}
+        {/* Blog route */}
+        <Route path="/blog/:id" element={<BlogPost />} />
+
+        {/* Protected Profile route */}
         <Route
           path="/profile/*"
           element={
