@@ -1,5 +1,9 @@
 const ProfileDetails = () => {
-  return <h3>Profile Details Section</h3>
+  return (
+    <div className="text-center">
+      <h3 className="text-2xl font-semibold">Profile Details Section</h3>
+    </div>
+  )
 }
 
 export default ProfileDetails

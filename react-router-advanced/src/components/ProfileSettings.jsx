@@ -1,5 +1,9 @@
 const ProfileSettings = () => {
-  return <h3>Profile Settings Section</h3>
+  return (
+    <div className="text-center">
+      <h3 className="text-2xl font-semibold">Profile Settings Section</h3>
+    </div>
+  )
 }
 
 export default ProfileSettings

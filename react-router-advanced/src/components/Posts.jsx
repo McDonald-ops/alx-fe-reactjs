@@ -8,12 +8,18 @@ const dummyPosts = [
 
 const Posts = () => {
   return (
-    <div>
-      <h2 className="text-center text-4xl font-bold text-[#233038]">Posts</h2>
-      <ul>
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <h2 className="text-4xl font-bold text-[#233038] mb-6">Posts</h2>
+
+      <ul className="space-y-3">
         {dummyPosts.map((post) => (
           <li key={post.id}>
-            <Link to={`/posts/${post.id}`}>{post.title}</Link>
+            <Link 
+              to={`/posts/${post.id}`} 
+              className="text-blue-600 hover:underline text-lg"
+            >
+              {post.title}
+            </Link>
           </li>
         ))}
       </ul>

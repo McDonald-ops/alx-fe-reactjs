@@ -1,22 +1,24 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './components/Home'
 import Login from './components/Login'
 import Profile from './components/Profile'
-import ProfileDetails from './components/ProfileDetails'
-import ProfileSettings from './components/ProfileSettings'
 import Posts from './components/Posts'
 import PostDetails from './components/PostDetails'
+import ProfileDetails from './components/ProfileDetails'
+import ProfileSettings from './components/ProfileSettings'
 import ProtectedRoute from './components/ProtectedRoute'
 
-function App() {
+const App = () => {
   return (
-    <div>
+    <BrowserRouter>
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/posts" element={<Posts />} />
+        <Route path="/posts/:id" element={<PostDetails />} />
 
-        {/* Protected + Nested Routes */}
+        {/* Protected Routes */}
         <Route
           path="/profile"
           element={
@@ -28,15 +30,8 @@ function App() {
           <Route path="details" element={<ProfileDetails />} />
           <Route path="settings" element={<ProfileSettings />} />
         </Route>
-
-        {/* Dynamic Routes for Posts */}
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/posts/:id" element={<PostDetails />} />
-
-        {/* Catch-all route */}
-        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </div>
+    </BrowserRouter>
   )
 }
 
