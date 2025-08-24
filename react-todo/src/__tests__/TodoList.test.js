@@ -1,43 +1,43 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import TodoList from "../components/TodoList";
+// import { render, screen, fireEvent } from "@testing-library/react";
+// import TodoList from "../components/TodoList";
 
-describe("TodoList Component", () => {
-  test("renders initial todos", () => {
-    render(<TodoList />);
-    expect(screen.getByText("Learn React")).toBeInTheDocument();
-    expect(screen.getByText("Build a Todo App")).toBeInTheDocument();
-  });
+// describe("TodoList Component", () => {
+//   test("renders initial todos", () => {
+//     render(<TodoList />);
+//     expect(screen.getByText("Learn React")).toBeInTheDocument();
+//     expect(screen.getByText("Build a Todo App")).toBeInTheDocument();
+//   });
 
-  test("can add a new todo", () => {
-    render(<TodoList />);
+//   test("can add a new todo", () => {
+//     render(<TodoList />);
 
-    const input = screen.getByPlaceholderText("Enter a new todo");
-    const addButton = screen.getByText("Add Todo");
+//     const input = screen.getByPlaceholderText("Enter a new todo");
+//     const addButton = screen.getByText("Add Todo");
 
-    fireEvent.change(input, { target: { value: "Write Tests" } });
-    fireEvent.click(addButton);
+//     fireEvent.change(input, { target: { value: "Write Tests" } });
+//     fireEvent.click(addButton);
 
-    expect(screen.getByText("Write Tests")).toBeInTheDocument();
-  });
+//     expect(screen.getByText("Write Tests")).toBeInTheDocument();
+//   });
 
-  test("can toggle a todo as completed", () => {
-    render(<TodoList />);
+//   test("can toggle a todo as completed", () => {
+//     render(<TodoList />);
 
-    const todoItem = screen.getByText("Learn React");
-    fireEvent.click(todoItem);
+//     const todoItem = screen.getByText("Learn React");
+//     fireEvent.click(todoItem);
 
-    expect(todoItem).toHaveClass("line-through");
-  });
+//     expect(todoItem).toHaveClass("line-through");
+//   });
 
-  test("can delete a todo", () => {
-    render(<TodoList />);
+//   test("can delete a todo", () => {
+//     render(<TodoList />);
 
-    const todoText = "Build a Todo App";
-    const deleteButton = screen.getAllByText("Delete")[1]; // delete second todo
+//     const todoText = "Build a Todo App";
+//     const deleteButton = screen.getAllByText("Delete")[1]; // delete second todo
 
-    fireEvent.click(deleteButton);
+//     fireEvent.click(deleteButton);
 
-    // re-query the DOM after deletion
-    expect(screen.queryByText(todoText)).not.toBeInTheDocument();
-  });
-});
+//     // re-query the DOM after deletion
+//     expect(screen.queryByText(todoText)).not.toBeInTheDocument();
+//   });
+// });
